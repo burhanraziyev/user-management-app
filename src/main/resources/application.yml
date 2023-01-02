@@ -1,0 +1,6 @@
+spring:
+  application:
+    name: user-management-app
+
+  profiles:
+    active: dev
