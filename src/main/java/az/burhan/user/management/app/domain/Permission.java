@@ -12,6 +12,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.Hibernate;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 import org.springframework.data.annotation.CreatedBy;
@@ -22,6 +23,7 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDateTime;
+import java.util.Objects;
 
 import static jakarta.persistence.GenerationType.SEQUENCE;
 
@@ -43,6 +45,12 @@ public class Permission {
     @Column(updatable = false, insertable = false, nullable = false)
     private Long id;
 
+    @Column(nullable = false, unique = true)
+    private String name;
+
+    @Column(nullable = false, unique = true)
+    private String description;
+
     @CreatedDate
     @DateTimeFormat(pattern = "dd-MM-yyyy HH:mm:ss")
     @Column(nullable = false, insertable = false, updatable = false)
@@ -60,5 +68,18 @@ public class Permission {
     @LastModifiedBy
     @Column(nullable = false, insertable = false)
     private String lastModifiedBy;
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
+        Permission permission = (Permission) o;
+        return id != null && Objects.equals(id, permission.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return getClass().hashCode();
+    }
 
 }
