@@ -1,7 +1,6 @@
 package az.burhan.user.management.app.service.impl;
 
 import az.burhan.user.management.app.api.model.response.RoleDto;
-import az.burhan.user.management.app.domain.Permission;
 import az.burhan.user.management.app.domain.Role;
 import az.burhan.user.management.app.exception.ResourceNotFoundException;
 import az.burhan.user.management.app.mapper.RoleMapper;
@@ -24,11 +23,13 @@ public class RoleServiceImpl implements RoleService {
 
     @Override
     public RoleDto getRoleById(Long id) {
+        log.info("Get role by id: {}", id);
         return mapper.toDto(findById(id));
     }
 
     @Override
     public List<RoleDto> getAllRoles() {
+        log.info("Get all roles");
         return mapper.toDto(repository.findAll());
     }
 

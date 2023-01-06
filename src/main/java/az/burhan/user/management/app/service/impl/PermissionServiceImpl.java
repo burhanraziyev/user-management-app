@@ -27,10 +27,12 @@ public class PermissionServiceImpl implements PermissionService {
 
     @Override
     public PermissionDto getPermissionById(Long id) {
+        log.info("Get permission by id: {}", id);
         return mapper.toDto(findById(id));
     }
 
     private Permission findById(Long id) {
+        log.info("Get all permissions");
         return repository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Permission", "id", id));
     }
